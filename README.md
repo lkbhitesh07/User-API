@@ -1,5 +1,7 @@
 # User-API
 In this project I have implemented django rest framework to get some data via API's. I have implemented functionality of GET, PUT, POST, DELETE and to POST multiple JSON data at once.
+I have used Postgresql database and have deployed it on heroku.
+Link - https://tomarji-api-wale.herokuapp.com/api/users/
 
 # How to setup
 
@@ -25,6 +27,9 @@ All set and you are ready to go.
 
 # This is /api/users page
 ![Alt text](/images/home-page.png?raw=true "Title")
+
+# You can get data with query parameters
+![Alt text](/images/query-parameter.png?raw=true "Title")
 
 # This is single user detail page with id
 ![Alt text](/images/single-user.png?raw=true "Title")
