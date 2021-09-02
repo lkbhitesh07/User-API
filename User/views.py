@@ -2,6 +2,7 @@ from django.db.models.query import QuerySet
 from django.http.response import Http404
 from .serializers import UserSerializer, RestrictedUserSerializer
 from .models import CustomUser
+from django.db.models import Q
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -12,28 +13,50 @@ from .pagination import CustomPageNumberPagination
 
 
 # Create your views here.
-class UserAPIView(generics.ListAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = UserSerializer
-    pagination_class = CustomPageNumberPagination
-
-
-
+class UserAPIView(APIView):
+    # queryset = CustomUser.objects.all()
     # serializer_class = UserSerializer
+    # pagination_class = CustomPageNumberPagination
 
-    # def get(self, request, format=None):
-    #     data = CustomUser.objects.all()
-    #     serializer = self.serializer_class(data, many=True)
-    #     serialized_data = serializer.data
-    #     return Response(serialized_data, status=status.HTTP_200_OK)
 
-    # def post(self, request, format=None):
-    #     serializer = self.serializer_class(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         serialized_data = serializer.data
-    #         return Response(serialized_data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    serializer_class = UserSerializer
+
+    def get(self, request, format=None):
+        data = CustomUser.objects.all()
+        page = self.request.GET.get('page', 1)
+        limit = self.request.GET.get('limit', 5)
+        name = self.request.GET.get('name')
+        sort = self.request.GET.get('sort')
+
+        if name:
+            data = data.filter(Q(first_name__icontains=name) | Q(last_name__icontains=name))
+
+        if sort == 'age':
+            data = data.order_by('age')
+        elif(sort == '-age'):
+            data = data.order_by('-age')
+
+        if page:
+            page = int(page)
+        
+        if limit:
+            limit = int(limit)
+
+        start = (page-1) * limit
+        end = page * limit
+
+        serializer = self.serializer_class(data[start:end], many=True)
+        serialized_data = serializer.data
+        return Response(serialized_data, status=status.HTTP_200_OK)
+
+    def post(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            serialized_data = serializer.data
+            return Response(serialized_data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class SingleUserAPIView(APIView):
     serializer_class = RestrictedUserSerializer
