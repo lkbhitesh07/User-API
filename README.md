@@ -36,3 +36,10 @@ All set and you are ready to go.
 
 # This page will help you to send multiple JSON data at once to save in database
 ![Alt text](/images/multiple-users-at-once.png?raw=true "Title")
+
+# This is the modified django admin page
+
+You can create a superuser to login to admin page by - 
+`python manage.py createsuperuser` and add all details
+
+![Alt text](/images/admin-pannel.png?raw=true "Title")
