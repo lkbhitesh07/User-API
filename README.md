@@ -19,3 +19,15 @@ Run
 `python manage.py runserver`
 
 All set and you are ready to go.
+
+# This is home page.
+![Alt text](/images/home-page.png?raw=true "Title")
+
+# This is /api/users page
+![Alt text](/images/home-page.png?raw=true "Title")
+
+# This is single user detail page with id
+![Alt text](/images/single-user.png?raw=true "Title")
+
+# This page will help you to send multiple JSON data at once to save in database
+![Alt text](/images/multiple-users-at-once.png?raw=true "Title")
