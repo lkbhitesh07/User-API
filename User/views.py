@@ -14,12 +14,6 @@ from .pagination import CustomPageNumberPagination
 
 # Create your views here.
 class UserAPIView(APIView):
-    # queryset = CustomUser.objects.all()
-    # serializer_class = UserSerializer
-    # pagination_class = CustomPageNumberPagination
-
-
-
     serializer_class = UserSerializer
 
     def get(self, request, format=None):

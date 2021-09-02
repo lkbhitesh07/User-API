@@ -14,7 +14,7 @@ urlpatterns = [
         description="API for all things …",
         version="1.0.0"
     ), name='openapi-schema'),
-    path('api/users/', UserAPIView.as_view()),
-    path('api/users/<int:pk>', SingleUserAPIView.as_view()),
-    path('api/users/multiple/', MultipleUserAPIView.as_view()),
+    path('api/users/', UserAPIView.as_view(), name="user_api_view"),
+    path('api/users/<int:pk>', SingleUserAPIView.as_view(), name="single_user_api_view"),
+    path('api/users/multiple/', MultipleUserAPIView.as_view(), name="multiple_user_api_view"),
 ]
